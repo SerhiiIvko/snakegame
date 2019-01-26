@@ -58,8 +58,6 @@ public class GameField extends JPanel implements ActionListener {
         startButton.setVisible(false);
         scoreLabel.setVisible(false);
         for (int i = 0; i < dots; i++) {
-//            x[i] = 48 - i * DOT_SIZE;
-//            y[i] = 48;
             x[i] = dots * DOT_SIZE - i * DOT_SIZE;
             y[i] = dots * DOT_SIZE;
         }
