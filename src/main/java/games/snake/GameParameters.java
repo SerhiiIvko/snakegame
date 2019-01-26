@@ -5,6 +5,7 @@ class GameParameters {
     static final String APPLE_FILE_NAME = "apple.png";
     static final String DOT_FILE_NAME = "dot.png";
     static final String COUNT_STRING = "Your count: ";
+    static final String START_BUTTON_TEXT = "Start new game";
     static final int WIDTH_SIZE = 320;
     static final int HEIGHT_SIZE = 400;
 }

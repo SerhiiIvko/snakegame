@@ -12,7 +12,7 @@ class MainWindow extends JFrame {
         add(new GameField());
     }
 
-    public void showWindow(){
+    void showWindow() {
         setVisible(true);
     }
 }

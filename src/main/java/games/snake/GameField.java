@@ -11,19 +11,19 @@ import java.util.Random;
 public class GameField extends JPanel implements ActionListener {
     private final int DOT_SIZE = 16;
     private final int ALL_DOTS = 400;
-    private Image dot;
-    private Image apple;
     private int appleX;
     private int appleY;
+    private int dots;
+    private int count = 0;
     private int[] x = new int[ALL_DOTS];
     private int[] y = new int[ALL_DOTS];
-    private int dots;
     private boolean left;
     private boolean right;
     private boolean down;
     private boolean up;
     private boolean inGame = false;
-    private int count = 0;
+    private Image dot;
+    private Image apple;
     private JButton startButton;
     private JLabel scoreLabel;
 
@@ -35,15 +35,17 @@ public class GameField extends JPanel implements ActionListener {
         setFocusable(true);
         Timer timer = new Timer(270, this);
         timer.start();
-        startButton = new JButton("Start new game");
+        startButton = new JButton(GameParameters.START_BUTTON_TEXT);
         startButton.addActionListener(e -> startGame());
         scoreLabel = new JLabel();
         scoreLabel.setForeground(Color.white);
         scoreLabel.setVisible(false);
-        add(scoreLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
-                GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        add(startButton, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
-                GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 0, 0));
+        add(scoreLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0,
+                GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
+        add(startButton, new GridBagConstraints(0, 1, 1, 1, 0, 0,
+                GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                new Insets(10, 0, 0, 0), 0, 0));
     }
 
     private void startGame() {
@@ -56,8 +58,10 @@ public class GameField extends JPanel implements ActionListener {
         startButton.setVisible(false);
         scoreLabel.setVisible(false);
         for (int i = 0; i < dots; i++) {
-            x[i] = 48 - i * DOT_SIZE;
-            y[i] = 48;
+//            x[i] = 48 - i * DOT_SIZE;
+//            y[i] = 48;
+            x[i] = dots * DOT_SIZE - i * DOT_SIZE;
+            y[i] = dots * DOT_SIZE;
         }
         createApple();
     }
@@ -135,7 +139,6 @@ public class GameField extends JPanel implements ActionListener {
             checkApple();
             checkCollisions();
             move();
-
         }
         repaint();
     }
