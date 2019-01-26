@@ -10,6 +10,9 @@ class MainWindow extends JFrame {
         setSize(GameParameters.WIDTH_SIZE, GameParameters.HEIGHT_SIZE);
         setLocationRelativeTo(null);
         add(new GameField());
+    }
+
+    public void showWindow(){
         setVisible(true);
     }
 }

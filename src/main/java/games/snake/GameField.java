@@ -24,15 +24,26 @@ public class GameField extends JPanel implements ActionListener {
     private boolean up;
     private boolean inGame = false;
     private int count = 0;
+    private JButton startButton;
+    private JLabel scoreLabel;
 
     GameField() {
+        setLayout(new GridBagLayout());
         setBackground(Color.black);
         loadImage();
         addKeyListener(new FieldKeyListener());
         setFocusable(true);
         Timer timer = new Timer(270, this);
         timer.start();
-        startGame();
+        startButton = new JButton("Start new game");
+        startButton.addActionListener(e -> startGame());
+        scoreLabel = new JLabel();
+        scoreLabel.setForeground(Color.white);
+        scoreLabel.setVisible(false);
+        add(scoreLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
+                GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        add(startButton, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
+                GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 0, 0));
     }
 
     private void startGame() {
@@ -42,6 +53,8 @@ public class GameField extends JPanel implements ActionListener {
         up = false;
         dots = 3;
         inGame = true;
+        startButton.setVisible(false);
+        scoreLabel.setVisible(false);
         for (int i = 0; i < dots; i++) {
             x[i] = 48 - i * DOT_SIZE;
             y[i] = 48;
@@ -70,9 +83,10 @@ public class GameField extends JPanel implements ActionListener {
                 g.drawImage(dot, x[i], y[i], this);
             }
         } else {
+            startButton.setVisible(true);
             String str = GameParameters.COUNT_STRING + count;
-            g.setColor(Color.white);
-            drawStringMiddleOfPanel(str, g);
+            scoreLabel.setText(str);
+            scoreLabel.setVisible(true);
         }
     }
 
@@ -113,7 +127,6 @@ public class GameField extends JPanel implements ActionListener {
         if (x[0] > SIZE || x[0] < 0 || y[0] > SIZE || y[0] < 0) {
             inGame = false;
         }
-
     }
 
     @Override
@@ -122,21 +135,9 @@ public class GameField extends JPanel implements ActionListener {
             checkApple();
             checkCollisions();
             move();
+
         }
         repaint();
-    }
-
-    private void drawStringMiddleOfPanel(String string, Graphics graphics) {
-        int stringWidth;
-        int stringAccent;
-        int xCoordinate;
-        int yCoordinate;
-        FontMetrics fontMetrics = graphics.getFontMetrics();
-        stringWidth = fontMetrics.stringWidth(string);
-        stringAccent = fontMetrics.getAscent();
-        xCoordinate = getWidth() / 2 - stringWidth / 2;
-        yCoordinate = getHeight() / 2 + stringAccent / 2;
-        graphics.drawString(string, xCoordinate, yCoordinate);
     }
 
     class FieldKeyListener extends KeyAdapter {
@@ -160,10 +161,6 @@ public class GameField extends JPanel implements ActionListener {
                 left = false;
                 right = false;
             }
-//            else if (key == KeyEvent.VK_ENTER) {
-//                inGame = true;
-//                startGame();
-//            }
         }
     }
 }
