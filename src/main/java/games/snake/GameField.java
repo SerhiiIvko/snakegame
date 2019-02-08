@@ -49,6 +49,7 @@ public class GameField extends JPanel implements ActionListener {
     }
 
     private void startGame() {
+        count = 0;
         left = false;
         right = true;
         down = false;
